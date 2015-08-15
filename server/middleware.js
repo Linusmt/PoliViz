@@ -14,7 +14,7 @@ module.exports = function(app, express){
 	//Serves the public directory to the user
 	app.use(express.static(__dirname + '/../public'));
 
-	Database Requests for dataSets
+	// Database Requests for dataSets
 	app.get('/dataSets/:name', databaseController.findDataSet);
 	app.post('/dataSets', databaseController.addDataSet);
 	app.post('/dataSets/clear', databaseController.clearCollection);
