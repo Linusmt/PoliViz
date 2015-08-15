@@ -23,13 +23,14 @@ var init = function(){
 
 //gets total contributions for each candidate, ordered by committee name.
 var getContributions = function(callback){
-  var queryString = 'select CAND_NAME, CAND_PTY_AFFILIATION, CMTE_NM, TRANSACTION_AMT \
-  FROM joinedData order by CAND_NAME, CMTE_NM;';
-
+  // var queryString = 'select CAND_NAME, CAND_PTY_AFFILIATION, CMTE_NM, TRANSACTION_AMT \
+  // FROM joinedData order by CAND_NAME, CMTE_NM;';
+  var queryString = 'select CAND_ID\
+  FROM candidate;';
   connection.query(queryString, function(err, results){
     if(err) console.log(err);
-    console.log(results);
-    callback(JSON.stringify(results));
+    console.log(results.length);
+    callback(JSON.stringify(results.length));
   });
 };
 
