@@ -14,18 +14,18 @@ module.exports = function(app, express){
 	//Serves the public directory to the user
 	app.use(express.static(__dirname + '/../public'));
 
-	//Database Requests for dataSets
-	// app.get('/dataSets/:name', databaseController.findDataSet);
-	// app.post('/dataSets', databaseController.addDataSet);
-	// app.post('/dataSets/clear', databaseController.clearCollection);
-	// app.post('/dataSets/:name', databaseController.updateDataSet);
+	Database Requests for dataSets
+	app.get('/dataSets/:name', databaseController.findDataSet);
+	app.post('/dataSets', databaseController.addDataSet);
+	app.post('/dataSets/clear', databaseController.clearCollection);
+	app.post('/dataSets/:name', databaseController.updateDataSet);
 
 
 	// //Database Request for politicians 
-	// app.get('/politicians/:name', databaseController.findDataSet);
-	// app.post('/politicians', databaseController.addDataSet);
-	// app.post('/politicians/clear', databaseController.clearCollection);
-	// app.post('/politicians/:name', databaseController.updateDataSet);
+	app.get('/politicians/:name', databaseController.findDataSet);
+	app.post('/politicians', databaseController.addDataSet);
+	app.post('/politicians/clear', databaseController.clearCollection);
+	app.post('/politicians/:name', databaseController.updateDataSet);
 
 	// //Database Request for committee contributions
 	// app.get('/campaignContributions', SQLController.getFinancialData)

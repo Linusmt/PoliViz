@@ -1,5 +1,5 @@
 var monk = require('monk');
-var db = monk(process.env.CUSTOMCONNSTR_MONGOLAB_URI||'localhost/db');
+var db = monk(PROD_MONGODB||'localhost/db');
 
 //This holds connections for all the current collections
 var collections = {
