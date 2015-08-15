@@ -1,7 +1,7 @@
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var databaseController = require('./db/Mongo/databaseController.js');
-var SQLController = require('./db/SQL/SQLController.js')
+// var databaseController = require('./db/Mongo/databaseController.js');
+// var SQLController = require('./db/SQL/SQLController.js')
 
 module.exports = function(app, express){
 
@@ -15,19 +15,19 @@ module.exports = function(app, express){
 	app.use(express.static(__dirname + '/../public'));
 
 	//Database Requests for dataSets
-	app.get('/dataSets/:name', databaseController.findDataSet);
-	app.post('/dataSets', databaseController.addDataSet);
-	app.post('/dataSets/clear', databaseController.clearCollection);
-	app.post('/dataSets/:name', databaseController.updateDataSet);
+	// app.get('/dataSets/:name', databaseController.findDataSet);
+	// app.post('/dataSets', databaseController.addDataSet);
+	// app.post('/dataSets/clear', databaseController.clearCollection);
+	// app.post('/dataSets/:name', databaseController.updateDataSet);
 
 
-	//Database Request for politicians 
-	app.get('/politicians/:name', databaseController.findDataSet);
-	app.post('/politicians', databaseController.addDataSet);
-	app.post('/politicians/clear', databaseController.clearCollection);
-	app.post('/politicians/:name', databaseController.updateDataSet);
+	// //Database Request for politicians 
+	// app.get('/politicians/:name', databaseController.findDataSet);
+	// app.post('/politicians', databaseController.addDataSet);
+	// app.post('/politicians/clear', databaseController.clearCollection);
+	// app.post('/politicians/:name', databaseController.updateDataSet);
 
-	//Database Request for committee contributions
-	app.get('/campaignContributions', SQLController.getFinancialData)
+	// //Database Request for committee contributions
+	// app.get('/campaignContributions', SQLController.getFinancialData)
 
 };
