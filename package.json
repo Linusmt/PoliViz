@@ -19,7 +19,6 @@
   "homepage": "https://github.com/AztecBananas/AztecBananas#readme",
   "dependencies": {
     "body-parser": "^1.13.3",
-    "bootstrap": "^3.3.5",
     "bower": "^1.3.2",
     "express": "^4.13.3",
     "mongo": "^0.1.0",
