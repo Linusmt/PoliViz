@@ -4,9 +4,8 @@ angular.module('poliviz.committeeController', [])
     committeeData.getData()
       .then(function(data){
        $scope.data = data;
-       console.log(data);
-    })
-  }
+    });
+  };
   $scope.getData();
 })
 
@@ -21,7 +20,7 @@ angular.module('poliviz.committeeController', [])
         var data = scope.data;
         //sort data, largest to smallest contributions
         data.sort(function(a,b){
-          return b["SUM(TRANSACTION_AMT)"] - a["SUM(TRANSACTION_AMT)"]
+          return b["TRANSACTION_AMT"] - a["TRANSACTION_AMT"]
         })
         var height = 1200;
         var width = window.innerWidth;
@@ -34,13 +33,13 @@ angular.module('poliviz.committeeController', [])
             .attr("width", width)
             .attr("height", height);
 
-
+            console.log(data);
         svg.selectAll('circle')
           .data(data)
           .enter()
           .append('circle')
           .style('fill', 'red')
-          .attr('r', function(d){return Math.abs(d["SUM(TRANSACTION_AMT)"] / largestContribution * 50); })
+          .attr('r', function(d){return Math.abs(d["TRANSACTION_AMT"] / largestContribution * 50); })
           .attr('cy', function(d, i){
             if (i % rowSize === 0) {
               yCounter = yCounter + 40

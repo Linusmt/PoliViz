@@ -21,51 +21,33 @@ var databaseFilter = function(collectionName, name, firstName, lastName, req, re
             request('http://www.politifact.com/api/statements/truth-o-meter/people/' +nameId+ '/json/?n=100', function (error, response, body) {
               var data = JSON.parse(body);
               if (!error && response.statusCode == 200) {
-                //filter the data before storage and send to client)
-                var filteredData = {
-                  rulingMap: [
-                    {"ruling":"true", "value": 0, "quotes": []},
-                    {"ruling":"mostly-true", "value": 0, "quotes": []},
-                    {"ruling":"false", "value": 0, "quotes": []},
-                    {"ruling":"pants-fire", "value": 0, "quotes": []},
-                    {"ruling":"no-flip", "value": 0, "quotes": []},
-                    {"ruling":"half-flip", "value": 0, "quotes": []},
-                    {"ruling":"barely-true", "value": 0, "quotes": []},
-                    {"ruling":"full-flop", "value":0, "quotes": []},
-                    {"ruling":"half-true", "value": 0, "quotes": []}
-                  ]
-                };
+                
+                //This is the list of different possible rulings that we will be looking for
+                var rulingNames = ["true", "mostly-true","false", "pants-fire", "no-flip", "half-flip", "barely-true", "full-flop", "half-true"];
+                var filteredData = {rulingMap:[]};//This will ultimitaly hold the data array
+                
+
+                //rulings object will 
+                var rulings= {};
+                //This loop fills the rulings object
+                for(var i = 0 ; i < rulingNames.length ; i++){
+                  rulings[rulingNames[i]]={"ruling":rulingNames[i],"value": 0, "quotes": []};
+                }
+
+                //Goes through the comment chunks and assigns them to their appropriate
+                //object
                 for (var i = 0; i < data.length; i++) {
-                  if (data[i].speaker.name_slug === nameId) {
-                    if (data[i].ruling.ruling_slug === 'true') {
-                      filteredData.rulingMap[0].value++;
-                      filteredData.rulingMap[0].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'mostly-true') {
-                      filteredData.rulingMap[1].value++;
-                      filteredData.rulingMap[1].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'false') {
-                      filteredData.rulingMap[2].value++;
-                      filteredData.rulingMap[2].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'pants-fire') {
-                      filteredData.rulingMap[3].value++;
-                      filteredData.rulingMap[3].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'no-flip') {
-                      filteredData.rulingMap[4].value++;
-                      filteredData.rulingMap[4].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'half-flip') {
-                      filteredData.rulingMap[5].value++;
-                      filteredData.rulingMap[5].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'barely-true') {
-                      filteredData.rulingMap[6].value++;
-                      filteredData.rulingMap[6].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'full-flop') {
-                      filteredData.rulingMap[7].value++;
-                      filteredData.rulingMap[7].quotes.push(data[i].statement);
-                    } else if (data[i].ruling.ruling_slug === 'half-true') {
-                      filteredData.rulingMap[8].value++;
-                      filteredData.rulingMap[8].quotes.push(data[i].statement);
+                    var currentRule = rulings[data[i].ruling.ruling_slug];
+
+                    if(currentRule && data[i].speaker.name_slug){
+                      currentRule.value++;
+                      currentRule.quotes.push(data[i].statement);
                     }
-                  }
+                }
+
+                //Places the objects into the filtered data object to make it bett
+                for(var i = 0 ; i < rulingNames.length ; i++){
+                  filteredData.rulingMap.push(rulings[rulingNames[i]]);
                 }
                 //send to client and store in db
                 database.addDataSet(collectionName, filteredData, name, function (err){});
@@ -85,5 +67,3 @@ var databaseFilter = function(collectionName, name, firstName, lastName, req, re
 module.exports = {
   databaseFilter: databaseFilter
 };
-
-

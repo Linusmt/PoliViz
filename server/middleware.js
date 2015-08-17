@@ -1,7 +1,8 @@
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var databaseController = require('./db/Mongo/databaseController.js');
-// var SQLController = require('./db/SQL/SQLController.js')
+var SQLController = require('./db/SQL/SQLController.js');
+// var sequelizeController = require('./db/SQL/Sequelize/sequelDB.js');
 
 module.exports = function(app, express){
 
@@ -28,6 +29,6 @@ module.exports = function(app, express){
 	app.post('/politicians/:name', databaseController.updateDataSet);
 
 	// //Database Request for committee contributions
-	// app.get('/campaignContributions', SQLController.getFinancialData)
+	app.get('/campaignContributions', SQLController.getFinancialData);
 
 };
