@@ -5,7 +5,7 @@
 //Run only once
 //********************************************
 var monk = require('monk');
-var db = monk(process.env.CUSTOMCONNSTR_MONGOLAB_URI||'localhost/db');
+var db = monk(process.env.MONGOLAB_URI||'localhost/db');
 
 var collections = {
   dataSets: db.get('dataSets'),

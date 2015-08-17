@@ -1,4 +1,4 @@
-CREATE DATABASE PoliticalData;
+CREATE DATABASE IF NOT EXISTS PoliticalData;
 
 USE PoliticalData;
 

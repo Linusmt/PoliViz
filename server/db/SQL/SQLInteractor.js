@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 
 //connects to SQL database
-var connection = mysql.createConnection({
+var connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL||{
   user: 'root',
   password: '',
   database: 'PoliticalData'
