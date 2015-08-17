@@ -5,7 +5,7 @@ var db_config = process.env.CLEARDB_DATABASE_URL||{
   user: 'root',
   password: '',
   database: 'PoliticalData'
-});
+};
 
 var connection;
 function handleDisconnect() {
